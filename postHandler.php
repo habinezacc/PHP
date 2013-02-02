@@ -1,5 +1,5 @@
 <?php
-  import_request_variables("pg", "form_");
+	import_request_variables("pg", "form_");
     mysql_connect("localhost", "conco", "password") or die(mysql_error());
     
     //mysql_query("CREATE DATABASE jeanpierre");//one time event
@@ -12,46 +12,32 @@
     		"denomination VARCHAR(140) NOT NULL, ".
     		"lieu VARCHAR(140) NOT NULL, ".
     		"membres VARCHAR(140) NOT NULL, ".
-    		"PRIMARY KEY ( tutorial_id )); "; 
+    		"PRIMARY KEY (id )); "; 
     // members can be in or string, umwaka can be time or int or string
-    //mysql_query($query); //firstime event. better do it with mysql command line
+   //mysql_query($query); //firstime event. better do it with mysql command line
    if(isset($_POST['submit'])){
-	    for($count = 0; $count < 4 ;$count++){
-	    	$umwaka = 'form_umwaka'.intval( $count);
+	    for($count = 0; $count < 5 ;$count++){
+	    	$umwaka = 'form_umwaka'.intval( $count);  $year = $$umwaka;
 	    	$denomination = $denominations[ $count];
 	    	//handle the checkbox
-	    	$lieu = 'form_lieu'.intval( $count);
-	    	$membre = 'form_membre'.intval( $count);
-	    	$row_data = array($$umwaka, $denomination, $$lieu3, $$members); // no double $ on denomination
-	     	echo $denomination."\r\n";
+	    	$lieu = 'form_lieu'.intval( $count); $location = $$lieu;
+	    	$membre = 'form_membre'.intval( $count); $member = $$membre;
+	    	$row_data = array($year, $denomination, $location, $member); // no double $ on denomination
+	     	
 	    	if (!empty($row_data)) {
-	    		if (empty($$umwaka)  || empty($denomination) || empty($$lieu) ||empty($$membre)) {continue;}// you might need to change this !!
-	    		$i =0;
-	    		foreach ($row_data as $entry){
-		    		switch ($i) {
-					    case 0:
-					       $entryKey = "umwaka";
-					        break;
-					    case 1:
-					        $entryKey = "denomination";
-					        break;
-					    case 2:
-					        $entryKey = "lieu";
-					        break;
-				        case 3:
-				        	$entryKey = "members";
-				        	break;
-					}
-					$i++;
-	    			$query = "INSERT INTO church ($entryKey) VALUES ('$entry')";
-		    		if (mysql_query($query)){
-		    			continue;
-		    			echo 'Successful inserts: ' . mysql_affected_rows()."\r\n"; //you dont really need to do anything
-		    		}
-		    		else
-		    			echo 'query failed'."\r\n";
-		    			//reload the page to give the user another chance to fill in the table
+	    		//if (empty($year)  || empty($denomination) || empty($location) ||empty($$member)) {continue;}// you might need to change this !!
+	    		$query = "INSERT INTO church (umwaka, denomination, lieu, membres) VALUES ('$year', '$denomination', '$location', '$member')";
+	    		if (mysql_query($query)){
+	    			continue;
+	    			echo 'Successful inserts: ' . mysql_affected_rows()."\r\n"; //you dont really need to do anything
 	    		}
+	    		else
+	    			echo 'query failed'."\r\n";
+	    			//reload the page to give the user another chance to fill in the table
+	    	}
+	    	else {
+	    		continue;
+	    		//ask the user to fill in the table appropriatly
 	    	}
 	    }
     }
