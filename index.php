@@ -1,5 +1,6 @@
+
 <form action="postHandler.php" method="POST">
-  <table dir="ltr" border="1">
+	<table dir="ltr" border="1">
 		<colgroup width="50%" />
 		<colgroup id="colgroup" class="colgroup" align="center" valign="middle" title="title" width="1*" span="2" style="background:#ddd;" />
 		<thead>
